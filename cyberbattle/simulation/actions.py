@@ -106,6 +106,7 @@ class ActionResult(NamedTuple):
 
     reward: Reward
     outcome: Optional[model.VulnerabilityOutcome]
+    is_honeypot: bool = False
 
 
 ALGEBRA = boolean.BooleanAlgebra()
@@ -420,7 +421,8 @@ class AgentActions:
         reward -= vulnerability.cost
 
         logger.info("GOT REWARD: " + vulnerability.reward_string)
-        return True, ActionResult(reward=reward, outcome=outcome)
+        is_honeypot = getattr(vulnerability, 'is_honeypot', False)
+        return True, ActionResult(reward=reward, outcome=outcome, is_honeypot=is_honeypot)
 
     def exploit_remote_vulnerability(
         self,
@@ -533,6 +535,21 @@ class AgentActions:
         It takes a NodeId for the source machine, a NodeID for the target Machine, and a credential object
         for the credential.
         """
+        HONEYTOKEN_CREDS = {
+            "FAKE_SSH_DEV_CRED": -5.0,
+            "FAKE_DB_PASS": -5.0,
+            "FAKE_SAS_TOKEN": -5.0,
+            "FAKE_SHAREPOINT_ADMIN": -5.0,
+            "FAKE_GITHUB_PAT": -5.0,
+            "FAKE_AZURE_KEY": -5.0,
+        }
+
+        # ... inside connect_to_remote_machine ...
+        if credential in HONEYTOKEN_CREDS:
+            penalty = HONEYTOKEN_CREDS[credential]
+            logger.info(f"Honeytoken {credential} was used! Applying penalty {penalty}.")
+            return ActionResult(reward=penalty, outcome=None)
+
         graph = self._environment.network
         if source_node_id not in graph.nodes:
             raise ValueError(f"invalid node id '{source_node_id}'")

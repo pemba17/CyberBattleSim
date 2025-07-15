@@ -11,6 +11,12 @@ from . import agents
 from ._env.cyberbattle_env import AttackerGoal, DefenderGoal
 from .samples.chainpattern import chainpattern
 from .samples.toyctf import toy_ctf
+from .samples.toyctf import toy_ctf_2_honeypots
+from .samples.toyctf import toy_ctf_4_honeypots
+from .samples.toyctf import toy_ctf_6_honeypots
+from .samples.toyctf import toy_ctf_2_honeytokens
+from .samples.toyctf import toy_ctf_4_honeytokens
+from .samples.toyctf import toy_ctf_6_honeytokens
 from .samples.active_directory import generate_ad
 from .simulation import generate_network, model
 
@@ -35,6 +41,74 @@ register(
     id="CyberBattleToyCtf-v0",
     cyberbattle_env_identifiers=toy_ctf.ENV_IDENTIFIERS,
     entry_point="cyberbattle._env.cyberbattle_toyctf:CyberBattleToyCtf",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
+
+if "CyberBattleToyCtf-v0-2HoneyPots" in registry:
+    del registry["CyberBattleToyCtf-v0-2HoneyPots"]
+
+register(
+    id="CyberBattleToyCtf-v0-2HoneyPots",
+    cyberbattle_env_identifiers=toy_ctf_2_honeypots.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_toyctf_2_honeypots:CyberBattleToyCtf2HoneyPots",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
+
+
+if "CyberBattleToyCtf-v0-4HoneyPots" in registry:
+    del registry["CyberBattleToyCtf-v0-4HoneyPots"]
+
+register(
+    id="CyberBattleToyCtf-v0-4HoneyPots",
+    cyberbattle_env_identifiers=toy_ctf_4_honeypots.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_toyctf_4_honeypots:CyberBattleToyCtf4HoneyPots",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
+
+
+if "CyberBattleToyCtf-v0-6HoneyPots" in registry:
+    del registry["CyberBattleToyCtf-v0-6HoneyPots"]
+
+register(
+    id="CyberBattleToyCtf-v0-6HoneyPots",
+    cyberbattle_env_identifiers=toy_ctf_6_honeypots.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_toyctf_6_honeypots:CyberBattleToyCtf6HoneyPots",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
+
+if "CyberBattleToyCtf-v0-2HoneyTokens" in registry:
+    del registry["CyberBattleToyCtf-v0-2HoneyTokens"]
+
+register(
+    id="CyberBattleToyCtf-v0-2HoneyTokens",
+    cyberbattle_env_identifiers=toy_ctf_2_honeytokens.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_toyctf_2_honeytokens:CyberBattleToyCtf2HoneyTokens",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
+
+if "CyberBattleToyCtf-v0-4HoneyTokens" in registry:
+    del registry["CyberBattleToyCtf-v0-4HoneyTokens"]
+
+register(
+    id="CyberBattleToyCtf-v0-4HoneyTokens",
+    cyberbattle_env_identifiers=toy_ctf_4_honeytokens.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_toyctf_4_honeytokens:CyberBattleToyCtf4HoneyTokens",
+    kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
+    # max_episode_steps=2600,
+)
+
+if "CyberBattleToyCtf-v0-6HoneyTokens" in registry:
+    del registry["CyberBattleToyCtf-v0-6HoneyTokens"]
+
+register(
+    id="CyberBattleToyCtf-v0-6HoneyTokens",
+    cyberbattle_env_identifiers=toy_ctf_6_honeytokens.ENV_IDENTIFIERS,
+    entry_point="cyberbattle._env.cyberbattle_toyctf_6_honeytokens:CyberBattleToyCtf6HoneyTokens",
     kwargs={"defender_agent": None, "attacker_goal": AttackerGoal(own_atleast=6), "defender_goal": DefenderGoal(eviction=True)},
     # max_episode_steps=2600,
 )

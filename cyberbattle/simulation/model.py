@@ -244,6 +244,8 @@ class VulnerabilityInfo(NamedTuple):
     cost: float = 1.0
     # a string displayed when the vulnerability is successfully exploited
     reward_string: str = ""
+    # a boolean indicating if the vulnerability is a honeypot
+    is_honeypot: bool = False
 
 
 # A dictionary storing information about all supported vulnerabilities
